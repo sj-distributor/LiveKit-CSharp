@@ -1,0 +1,16 @@
+version: v1
+managed:
+  enabled: true
+  csharp_namespace:
+    except:
+     - buf.build/googleapis/googleapis
+    override: {}
+  optimize_for: CODE_SIZE
+  override:
+    CSHARP_NAMESPACE:
+    JAVA_PACKAGE:
+plugins:
+  - plugin: buf.build/grpc/csharp:v1.58.1
+    out: gen
+  - plugin: buf.build/protocolbuffers/csharp:v24.3
+    out: gen
