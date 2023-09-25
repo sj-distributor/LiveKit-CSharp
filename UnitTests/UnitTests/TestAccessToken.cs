@@ -1,3 +1,4 @@
+using Grpc.Net.Client;
 using Livekit;
 using LiveKit_CSharp.Auth;
 using NUnit.Framework;
@@ -6,11 +7,12 @@ namespace UnitTests;
 
 public class TestAccessToken
 {
-
     [Test]
     public void TestCanGenerateAccessToken()
     {
         var accessToken = new AccessToken("Alg5qfSGXaqd426", "0adb5eebd3de6f3af994f0ba3e1975c0");
+
+        // new RoomService.RoomServiceClient(GrpcChannel.ForAddress("localhost:50051"));
 
         var videoGrant = new VideoGrant()
         {
