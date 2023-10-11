@@ -4,6 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <RootNamespace>LiveKit_CSharp</RootNamespace>
         <Nullable>enable</Nullable>
+        <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
     </PropertyGroup>
 
 
