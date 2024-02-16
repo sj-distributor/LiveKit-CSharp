@@ -8,7 +8,7 @@ namespace LiveKit_CSharp.Services.Meeting
     public class GenerateAccessToken
     {
         public string CreateMeeting(
-            string meetingNumber, string apiKey, string apiSecret, string userId, string username, bool canPublish = true, bool canSubscribe = true)
+            string meetingNumber, string apiKey, string apiSecret, string userId, string username, bool canPublish = true, bool canSubscribe = true, bool canRecord = true)
         {
             var accessToken = new AccessToken(apiKey, apiSecret);
             
@@ -17,6 +17,7 @@ namespace LiveKit_CSharp.Services.Meeting
                 Room = meetingNumber,
                 RoomCreate = true,
                 RoomAdmin = true,
+                RoomRecord = canRecord,
                 CanPublish = canPublish,
                 CanSubscribe = canSubscribe,
                 CanPublishSources = new List<TrackSource>
@@ -69,6 +70,31 @@ namespace LiveKit_CSharp.Services.Meeting
             var videoGrant = new VideoGrant
             {
                 Room = meetingNumber, RoomList = true
+            };
+
+            return accessToken.AddGrant(videoGrant)
+                .SetIdentity(userId)
+                .SetTTL(TimeSpan.FromHours(2))
+                .SetName(username).ToJwt();
+        }
+
+        public string RecordMeeting(string meetingNumber, string apiKey, string apiSecret, string userId, string username)
+        {
+            var accessToken = new AccessToken(apiKey, apiSecret);
+            
+            var videoGrant = new VideoGrant
+            {
+                Room = meetingNumber, 
+                RoomRecord = true,
+                CanPublish = true,
+                CanSubscribe = true,
+                CanPublishSources = new List<TrackSource>
+                {
+                    TrackSource.Camera,
+                    TrackSource.Microphone,
+                    TrackSource.ScreenShare,
+                    TrackSource.ScreenShareAudio
+                }
             };
 
             return accessToken.AddGrant(videoGrant)
