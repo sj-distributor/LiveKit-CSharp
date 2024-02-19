@@ -18,7 +18,7 @@ namespace LiveKit_CSharp.Auth
 
         public AccessToken(string apiKey, string apiSecret)
         {
-            if (apiKey.IsNullOrEmpty() || apiSecret.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(apiSecret))
             {
                 throw new Exception("api-key and api-secret must be set");
             }
@@ -67,18 +67,18 @@ namespace LiveKit_CSharp.Auth
 
             var claims = new List<Claim>();
 
-            if (!Grant.Identity.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(Grant.Identity))
             {
                 claims.Add(new Claim("identity", Grant.Identity));
                 claims.Add(new Claim("sub", Grant.Identity));
             }
 
-            if (!Grant.Metadata.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(Grant.Metadata))
             {
                 claims.Add(new Claim("metadata", Grant.Metadata));
             }
 
-            if (!Grant.Name.IsNullOrEmpty())
+            if (!string.IsNullOrEmpty(Grant.Name))
             {
                 claims.Add(new Claim("name", Grant.Name));
             }

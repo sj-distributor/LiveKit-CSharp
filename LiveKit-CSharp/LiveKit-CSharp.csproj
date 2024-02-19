@@ -18,7 +18,7 @@
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.3.1" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
       <PackageReference Include="protobuf-net.Grpc" Version="1.1.1" />
-      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.2" />
     </ItemGroup>
 
 
