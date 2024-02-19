@@ -62,6 +62,31 @@ namespace LiveKit_CSharp.Services.Meeting
                 .SetName(username).ToJwt();
         }
         
+        public string RecordMeeting(string meetingNumber, string apiKey, string apiSecret, string userId, string username)
+        {
+            var accessToken = new AccessToken(apiKey, apiSecret);
+            
+            var videoGrant = new VideoGrant
+            {
+                Room = meetingNumber, 
+                RoomRecord = true,
+                CanPublish = true,
+                CanSubscribe = true,
+                CanPublishSources = new List<TrackSource>
+                {
+                    TrackSource.Camera,
+                    TrackSource.Microphone,
+                    TrackSource.ScreenShare,
+                    TrackSource.ScreenShareAudio
+                }
+            };
+
+            return accessToken.AddGrant(videoGrant)
+                .SetIdentity(userId)
+                .SetTTL(TimeSpan.FromHours(2))
+                .SetName(username).ToJwt();
+        }
+        
         public string GetAllMeeting(
             string meetingNumber, string apiKey, string apiSecret, string userId, string username)
         {

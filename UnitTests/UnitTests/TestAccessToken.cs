@@ -51,8 +51,12 @@ public class TestAccessToken
         var getAllMeetingJwt = accessToken
             .GetAllMeeting("5201314", "Alg5qfSGXaqd426", "0adb5eebd3de6f3af994f0ba3e1975c0", "1", "greg");
         
+        var recordMeetingJwt = accessToken
+            .GetAllMeeting("5201314", "Alg5qfSGXaqd426", "0adb5eebd3de6f3af994f0ba3e1975c0", "1", "greg");
+        
         Assert.That(joinMeetingJwt, Is.Not.Empty);
         Assert.That(createMeetingJwt, Is.Not.Empty);
         Assert.That(getAllMeetingJwt, Is.Not.Empty);
+        Assert.That(recordMeetingJwt, Is.Not.Empty);
     }
 } 
