@@ -36,7 +36,7 @@ namespace LiveKit_CSharp.Services.Meeting
         }
         
         public string JoinMeeting(
-            string meetingNumber, string apiKey, string apiSecret, string userId, string username, bool canPublish = true, bool canSubscribe = true)
+            string meetingNumber, string apiKey, string apiSecret, string userId, string username, bool canPublish = true, bool canSubscribe = true, bool canRecord = true)
         {
             var accessToken = new AccessToken(apiKey, apiSecret);
             
@@ -46,6 +46,7 @@ namespace LiveKit_CSharp.Services.Meeting
                 RoomJoin = true,
                 CanPublish = canPublish,
                 CanSubscribe = canSubscribe,
+                RoomRecord = canRecord,
                 CanPublishSources = new List<TrackSource>
                 {
                     TrackSource.Camera,
