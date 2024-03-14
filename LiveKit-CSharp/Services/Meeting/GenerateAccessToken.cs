@@ -102,5 +102,19 @@ namespace LiveKit_CSharp.Services.Meeting
                 .SetTTL(TimeSpan.FromHours(2))
                 .SetName(username).ToJwt();
         }
+        
+        public string GetMeetingInfoPermission(
+            string meetingNumber, string apiKey, string apiSecret)
+        {
+            var accessToken = new AccessToken(apiKey, apiSecret);
+            
+            var videoGrant = new VideoGrant
+            {
+                Room = meetingNumber,
+                RoomAdmin = true
+            };
+
+            return accessToken.AddGrant(videoGrant).SetTTL(TimeSpan.FromHours(2)).ToJwt();
+        }
     }
 }
