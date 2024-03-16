@@ -111,6 +111,7 @@ namespace LiveKit_CSharp.Services.Meeting
             var videoGrant = new VideoGrant
             {
                 Room = meetingNumber,
+                CanSubscribe = true,
                 RoomAdmin = true
             };
 
