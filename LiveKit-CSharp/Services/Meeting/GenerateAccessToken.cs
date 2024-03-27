@@ -46,7 +46,14 @@ namespace LiveKit_CSharp.Services.Meeting
                 RoomJoin = true,
                 CanPublish = canPublish,
                 CanSubscribe = canSubscribe,
-                RoomRecord = canRecord
+                RoomRecord = canRecord,
+                CanPublishSources = new List<TrackSource>
+                {
+                    TrackSource.Camera,
+                    TrackSource.Microphone,
+                    TrackSource.ScreenShare,
+                    TrackSource.ScreenShareAudio
+                }
             };
 
             return accessToken.AddGrant(videoGrant)
@@ -104,11 +111,7 @@ namespace LiveKit_CSharp.Services.Meeting
             var videoGrant = new VideoGrant
             {
                 Room = meetingNumber,
-                CanSubscribe = true,
-                RoomAdmin = true,
-                RoomJoin = true,                           
-                CanPublish = true,                   
-                RoomRecord = true
+                RoomJoin = true                          
             };
 
             return accessToken.AddGrant(videoGrant).SetTTL(TimeSpan.FromHours(2)).ToJwt();
