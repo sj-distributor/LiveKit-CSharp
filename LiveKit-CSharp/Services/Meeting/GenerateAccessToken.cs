@@ -36,7 +36,7 @@ namespace LiveKit_CSharp.Services.Meeting
         }
         
         public string JoinMeeting(
-            string meetingNumber, string apiKey, string apiSecret, string userId, string username, bool canPublish = true, bool canSubscribe = true, bool canRecord = true)
+            string meetingNumber, string apiKey, string apiSecret, string userId, string username)
         {
             var accessToken = new AccessToken(apiKey, apiSecret);
             
