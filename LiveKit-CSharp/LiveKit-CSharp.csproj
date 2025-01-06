@@ -4,6 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <RootNamespace>LiveKit_CSharp</RootNamespace>
         <Nullable>enable</Nullable>
+        <_FunctionsSkipCleanOutput>true</_FunctionsSkipCleanOutput>
     </PropertyGroup>
 
 
@@ -14,6 +15,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.3.1" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
       <PackageReference Include="protobuf-net.Grpc" Version="1.1.1" />
       <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.2" />

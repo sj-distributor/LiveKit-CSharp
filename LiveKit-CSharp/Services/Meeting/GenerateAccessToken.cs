@@ -17,9 +17,9 @@ namespace LiveKit_CSharp.Services.Meeting
                 Room = meetingNumber,
                 RoomCreate = true,
                 RoomAdmin = true,
+                RoomRecord = canRecord,
                 CanPublish = canPublish,
                 CanSubscribe = canSubscribe,
-                RoomRecord = canRecord,
                 CanPublishSources = new List<TrackSource>
                 {
                     TrackSource.Camera,
