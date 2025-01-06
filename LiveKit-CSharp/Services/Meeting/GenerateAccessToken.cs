@@ -36,13 +36,14 @@ namespace LiveKit_CSharp.Services.Meeting
         }
         
         public string JoinMeeting(
-            string meetingNumber, string apiKey, string apiSecret, string userId, string username)
+            string meetingNumber, string apiKey, string apiSecret, string userId, string username, bool? canUpdateOwnMetadata = true)
         {
             var accessToken = new AccessToken(apiKey, apiSecret);
             
             var videoGrant = new VideoGrant
             {
-              Room = meetingNumber,        
+              Room = meetingNumber,
+              CanUpdateOwnMetadata = canUpdateOwnMetadata,
               RoomJoin = true
             };
 
