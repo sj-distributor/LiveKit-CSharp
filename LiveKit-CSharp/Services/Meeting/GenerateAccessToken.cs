@@ -36,17 +36,33 @@ namespace LiveKit_CSharp.Services.Meeting
         }
         
         public string JoinMeeting(
-            string meetingNumber, string apiKey, string apiSecret, string userId, string username, bool canPublish = true, bool canSubscribe = true, bool canRecord = true)
+            string meetingNumber, string apiKey, string apiSecret, string userId, string username, bool? canUpdateOwnMetadata = true)
         {
             var accessToken = new AccessToken(apiKey, apiSecret);
             
             var videoGrant = new VideoGrant
             {
-                Room = meetingNumber,
-                RoomJoin = true,
-                RoomRecord = canRecord,
-                CanPublish = canPublish,
-                CanSubscribe = canSubscribe,
+              Room = meetingNumber,
+              CanUpdateOwnMetadata = canUpdateOwnMetadata,
+              RoomJoin = true
+            };
+
+            return accessToken.AddGrant(videoGrant)
+                .SetIdentity(userId)
+                .SetTTL(TimeSpan.FromHours(2))
+                .SetName(username).ToJwt();
+        }
+        
+        public string RecordMeeting(string meetingNumber, string apiKey, string apiSecret, string userId, string username)
+        {
+            var accessToken = new AccessToken(apiKey, apiSecret);
+            
+            var videoGrant = new VideoGrant
+            {
+                Room = meetingNumber, 
+                RoomRecord = true,
+                CanPublish = true,
+                CanSubscribe = true,
                 CanPublishSources = new List<TrackSource>
                 {
                     TrackSource.Camera,
@@ -77,30 +93,20 @@ namespace LiveKit_CSharp.Services.Meeting
                 .SetTTL(TimeSpan.FromHours(2))
                 .SetName(username).ToJwt();
         }
-
-        public string RecordMeeting(string meetingNumber, string apiKey, string apiSecret, string userId, string username)
+        
+        public string GetMeetingInfoPermission(
+            string meetingNumber, string apiKey, string apiSecret)
         {
             var accessToken = new AccessToken(apiKey, apiSecret);
             
             var videoGrant = new VideoGrant
             {
-                Room = meetingNumber, 
-                RoomRecord = true,
-                CanPublish = true,
+                Room = meetingNumber,
                 CanSubscribe = true,
-                CanPublishSources = new List<TrackSource>
-                {
-                    TrackSource.Camera,
-                    TrackSource.Microphone,
-                    TrackSource.ScreenShare,
-                    TrackSource.ScreenShareAudio
-                }
+                RoomAdmin = true                      
             };
 
-            return accessToken.AddGrant(videoGrant)
-                .SetIdentity(userId)
-                .SetTTL(TimeSpan.FromHours(2))
-                .SetName(username).ToJwt();
+            return accessToken.AddGrant(videoGrant).SetTTL(TimeSpan.FromHours(2)).ToJwt();
         }
     }
 }
